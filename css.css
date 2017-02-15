@@ -1,0 +1,16 @@
+.container {
+  margin:30px;
+  text-align:center;
+}
+
+.btn-success, .btn-danger {
+  width:200px;
+}
+
+.click {
+    background-image: url( 'ressources/logo.png' );
+    background-size: 100px 100px;
+    width:104px;
+    height:104px;
+    border-radius: 12px;
+}
