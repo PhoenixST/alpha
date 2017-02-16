@@ -8,7 +8,7 @@ var click = {
 };
 
 var autoclick = {
-  name : "Super clicker",
+  name : "Auto clicker lvl 1",
   baseInc : 1,
   baseCost : 1.5,
   prix : 15,
