@@ -29,7 +29,7 @@ $(document).ready(function(){
     var speed_inital = 100;
     var speed_costBase = 2;
     var speed_nombre = 0;
-    var speed_prix = 100;
+    var speed_prix = 200;
 
 
     $('#click').click(function(){
