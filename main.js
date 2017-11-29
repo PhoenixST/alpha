@@ -1,40 +1,45 @@
 $(document).ready(function(){
-    
+
     var total_click = 0;
-    
-    var powerClick = 1;    
+
+    var powerClick = 1;
     var power_initial = 10;
     var power_costBase = 1.5;
     var power_nombre = 0;
     var power_prix = 15;
-    
+
     var powerAutoClick = 0;
     var prixAuto = 5;
     var nbAuto = 1;
-    
+
     var tickAutoClick = 1000;
     var prixTick = 50;
     var nbTick = 1;
-    
+
     var batUn_initial = 10;
     var batUn_costBase = 1.2;
     var batUn_nombre = 0;
     var batUn_prix = 12;
-	
-	var megaL_initial = 666;
+
+    var megaL_initial = 666;
     var megaL_costBase = 1.2;
     var megaL_nombre = 0;
     var megaL_prix = 800;
-    
+
+    var speed_inital = 100;
+    var speed_costBase = 2;
+    var speed_nombre = 0;
+    var speed_prix = 100;
+
 
     $('#click').click(function(){
         total_click += powerClick;
         buttonUpdate();
     });
-    
+
     $("#buy_mega_clicker").click(function(){
-	
-	
+
+
         if(total_click >= megaL_prix){
 
             // (prix_dep^num_upgrade - 1) / (prix_dep - 1)
@@ -44,32 +49,32 @@ $(document).ready(function(){
 
             $("#buy_mega_clicker").text("Buy for " + megaL_prix);
             $("#mega_clicker_level").text("lvl " + (megaL_nombre));
-            
+
             buttonUpdate();
         }
 });
-    
+
     $("#increase_clicks").click(function(){
 	// augmentation du pouvoir de click
-	
+
         if(total_click >= power_prix){
-            
+
             // (prix_dep^num_upgrade - 1) / (prix_dep - 1)
             total_click -= Math.ceil(batUn_initial*(Math.pow(power_costBase, power_nombre+1)));
             power_nombre++;
             powerClick++;
             power_prix = Math.ceil(batUn_initial*(Math.pow(power_costBase, power_nombre+1)));
-            
+
             $("#increase_clicks").text("Buy for " + power_prix);
             $("#power_level").text("lvl " + (power_nombre-1));
-			
+
             buttonUpdate();
         }
     });
-    
+
     $("#auto_liker").click(function(){
 	// augmentation du auto click
-	
+
         if(total_click >= batUn_prix){
 
             // (prix_dep^num_upgrade - 1) / (prix_dep - 1)
@@ -80,16 +85,35 @@ $(document).ready(function(){
 
             $("#auto_liker").text("Buy for " + batUn_prix);
             $("#auto_liker_level").text("lvl " + (batUn_nombre));
-            
+
             buttonUpdate();
         }
 });
-    
+
+    $("#upgrade_speed").click(function(){
+    // augmentation du speed
+
+        if(total_click >= speed_prix){
+
+            // (prix_dep^num_upgrade - 1) / (prix_dep - 1)
+            total_click -= Math.ceil(speed_initial*(Math.pow(speed_costBase, speed_nombre+1)));
+            speed_nombre++;
+            tickAutoClick=tickAutoClick*0.8;
+            $("#time_period").text(tickAutoClick/1000);
+            speed_prix = Math.ceil(speed_initial*(Math.pow(speed_costBase, speed_nombre+1)));
+
+            $("#upgrade_speed").text("Buy for " + speed_prix);
+            $("#speed_level").text("lvl " + (speed_nombre));
+
+            buttonUpdate();
+        }
+});
+
     var buttonUpdate = function(){
 	// mise a jour des stats
-	
+
 		$("#total_clicks").text(total_click);
-		
+
         if(total_click >= prixAuto){
             $("#buy_auto_click").removeClass("btn-danger");
             $("#buy_auto_click").addClass("btn-success");
@@ -118,8 +142,15 @@ $(document).ready(function(){
             $("#buy_mega_clicker").addClass("btn-danger");
             $("#buy_mega_clicker").removeClass("btn-success");
         }
+        if(total_click >= speed_prix){
+            $("#upgrade_speed").removeClass("btn-danger");
+            $("#upgrade_speed").addClass("btn-success");
+        } else {
+            $("#upgrade_speed").addClass("btn-danger");
+            $("#upgrade_speed").removeClass("btn-success");
+        }
 		};
-    
+
     function ajoutAuto(number){
         total_click += number;
         $("#total_clicks").text(total_click);
@@ -128,10 +159,10 @@ $(document).ready(function(){
     window.setInterval(function(){
 
         ajoutAuto(batUn_nombre);
-		ajoutAuto(megaL_nombre*100);
+		    ajoutAuto(megaL_nombre*100);
 
         buttonUpdate();
 
-    }, tickAutoClick);   
-    
+    }, tickAutoClick);
+
 });
